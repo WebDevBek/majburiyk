@@ -217,6 +217,9 @@ bot.action('btn_no', ctx => {
 
 // 10. Global Xatolarni boshqarish
 bot.catch((err) => {
+    const isBlockedErr = err?.response?.error_code === 403 || 
+                        (err?.message && err.message.includes('blocked by the user'));
+    if (isBlockedErr) return; // Foydalanuvchi botni bloklagan bo'lsa xatoni konsolga chiqarmaymiz
     console.error("🔴 Global xato:", err.message);
 });
 
